@@ -1,38 +1,48 @@
 import { useState } from 'react'
 import './App.css'
-import JurosComposto from './components/JurosComposto'
-import JurosSimple from './components/JurosSimple'
+import { calcularJuros } from './scripts/scripts.js'
+import Cabecalho from './components/Cabecalho.jsx'
+import Formulario from './components/Formulario.jsx'
+import GraficoJuros from './components/GraficoJuros.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [capitalInicial, setCapitalInicial] = useState('')
+  const [taxaJuros, setTaxa] = useState('')
+  const [tempoJuros, setTempo] = useState('')
+  const [unidadeTaxa, setUnidadeTaxa] = useState('meses')
+  const [unidadeTempo, setUnidadeTempo] = useState('meses')
+  const [dadosGrafico, setDadosGrafico] = useState(null)
+
+  function calcular() {
+    const resultado = calcularJuros(
+      capitalInicial,
+      taxaJuros,
+      tempoJuros,
+      unidadeTempo,
+      unidadeTaxa
+    )
+
+    setDadosGrafico(resultado)
+  }
 
   return (
     <div className="app">
-      <header className="cabecalho">
-        <h1></h1>
-        <p>Site de Comparação entre Juros Simples e Compostos</p>
-      </header>
-      <section className="conteudo">
-        <div className="Inputs">
-          <label htmlFor="valorInicial">Valor Inicial:</label>
-          <input type="number" id="valorInicial" name="valorInicial" />
-        </div>
+      <Cabecalho />
 
-        <div className="Inputs">
-          <label htmlFor="taxaJuros">Taxa de Juros:</label>
-          <input type="number" id="taxaJuros" name="taxaJuros" />
-        </div>
+      <Formulario 
+      capitalInicial={capitalInicial}
+      setCapitalInicial={setCapitalInicial}
+      taxaJuros={taxaJuros}
+      setTaxa={setTaxa}
+      tempoJuros={tempoJuros}
+      setTempo={setTempo}
+      unidadeTaxa={unidadeTaxa}
+      setUnidadeTaxa={setUnidadeTaxa}
+      unidadeTempo={unidadeTempo}
+      setUnidadeTempo={setUnidadeTempo}
+      calcular={calcular} />
 
-        <div className="Inputs">
-          <label htmlFor="tempo">Tempo:</label>
-          <input type="number" id="tempo" name="tempo" />
-        </div>
-      </section>
-
-      <div className="botoes">
-        <button id='JurosSimples'>Calcular Juros Simples</button>
-        <button id='JurosCompostos'>Calcular Juros Compostos</button>
-      </div>
+      {dadosGrafico && <GraficoJuros dados={dadosGrafico} />}
       
     </div>
   )
