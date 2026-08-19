@@ -9,8 +9,8 @@ function App() {
   const [capitalInicial, setCapitalInicial] = useState('')
   const [taxaJuros, setTaxa] = useState('')
   const [tempoJuros, setTempo] = useState('')
-  const [unidadeTaxa, setUnidadeTaxa] = useState('meses')
-  const [unidadeTempo, setUnidadeTempo] = useState('meses')
+  const [unidadeTaxa, setUnidadeTaxa] = useState('Meses')
+  const [unidadeTempo, setUnidadeTempo] = useState('Meses')
   const [dadosGrafico, setDadosGrafico] = useState(null)
 
   function calcular() {
